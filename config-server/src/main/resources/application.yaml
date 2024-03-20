@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native # Note: by default, it uses git where all the configs are store, this setting of for local use where we created in config directory
+
+server:
+  port: 8088
+
