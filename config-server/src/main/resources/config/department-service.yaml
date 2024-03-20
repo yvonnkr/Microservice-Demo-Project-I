@@ -7,3 +7,9 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+# publish all the metrics probability to zipkin (1.0 = 100%)
+management:
+  tracing:
+    sampling:
+      probability: 1.0
