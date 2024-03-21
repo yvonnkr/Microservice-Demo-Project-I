@@ -1,5 +1,6 @@
 package com.yvolabs.departmentservice.controller;
 
+import com.yvolabs.departmentservice.client.EmployeeClient;
 import com.yvolabs.departmentservice.model.Department;
 import com.yvolabs.departmentservice.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 public class DepartmentController {
 
     private final DepartmentRepository repository;
+    private final EmployeeClient employeeClient;
 
     @PostMapping
     public Department add(@RequestBody Department department) {
@@ -34,6 +36,16 @@ public class DepartmentController {
         return repository.findById(id);
     }
 
+    @GetMapping("/with-employees")
+    public List<Department> findAllWithEmployees() {
+        log.info("Department find with-employees");
+        List<Department> departments = repository.findAll();
+        departments.forEach(department ->
+                department.setEmployees(employeeClient.findByDepartment(department.getId()))
+        );
+
+        return departments;
+    }
 
 }
 
